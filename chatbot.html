@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Simulated AI Chatbot with smart responses, dark/light mode, typing animation, and SEO." />
+  <title>Simulated Chatbot by Akhil</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #121212;
+      color: white;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    .light-mode {
+      background-color: #ffffff;
+      color: #000000;
+    }
+    #chat-container {
+      max-width: 600px;
+      margin: 40px auto;
+      padding: 20px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.05);
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+    .message {
+      margin: 10px 0;
+      padding: 10px 15px;
+      border-radius: 10px;
+      max-width: 80%;
+    }
+    .user {
+      background-color: #4e8cff;
+      align-self: flex-end;
+    }
+    .bot {
+      background-color: #2e2e2e;
+      align-self: flex-start;
+    }
+    .light-mode .user {
+      background-color: #d0e4ff;
+    }
+    .light-mode .bot {
+      background-color: #f0f0f0;
+    }
+    #input-area {
+      display: flex;
+      margin-top: 20px;
+    }
+    #input {
+      flex: 1;
+      padding: 10px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+    }
+    #send {
+      padding: 10px 20px;
+      margin-left: 10px;
+      background-color: #4e8cff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    #toggle-mode {
+      margin-top: 20px;
+      background: none;
+      border: 1px solid currentColor;
+      color: inherit;
+      padding: 8px 14px;
+      border-radius: 20px;
+      cursor: pointer;
+    }
+    .chat-window {
+      display: flex;
+      flex-direction: column;
+    }
+  </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Simulated Chatbot",
+    "operatingSystem": "All",
+    "applicationCategory": "Communication",
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "5",
+      "ratingCount": "100"
+    },
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+  </script>
+</head>
+<body>
+  <div id="chat-container">
+    <h2>Simulated Chatbot 🤖</h2>
+    <div class="chat-window" id="chat"></div>
+    <div id="input-area">
+      <input type="text" id="input" placeholder="Type something..." />
+      <button id="send">Send</button>
+    </div>
+    <button id="toggle-mode">Toggle Dark/Light Mode</button>
+  </div>
+
+  <script>
+    const responses = {
+      "hello": "Hello there! 👋",
+      "hi": "Hey! How can I help you today?",
+      "how are you": "I'm doing great, thanks! What about you?",
+      "what is your name": "I'm PassiveBot, your simulated chatbot assistant!",
+      "who created you": "I was created by Akhil from Passive Automator.",
+      "what can you do": "I can simulate conversations and give helpful responses!",
+      "bye": "Goodbye! Come back soon.",
+      "good night": "Sweet dreams! 🌙",
+      "good morning": "Good morning! ☀️ Hope you have a productive day.",
+      "good evening": "Good evening! 🌆 How was your day?",
+      "thank you": "You're welcome! 😊",
+      "thanks": "Anytime! 🙌",
+      "what is ai": "AI stands for Artificial Intelligence. It's about machines learning to think!",
+      "tell me a joke": "Why don’t scientists trust atoms? Because they make up everything!",
+      "tell me another joke": "Why did the scarecrow win an award? Because he was outstanding in his field!",
+      "do you love me": "I appreciate you! ❤️",
+      "can you help me": "Of course! What do you need help with?",
+      "how old are you": "I'm as old as this browser tab!",
+      "what's your favorite color": "I like #000000 and #FFFFFF — I'm binary like that!",
+      "sing a song": "🎵 La la laaa... I hope that sounded good!",
+      "what is chatbot": "A chatbot is software that simulates conversation with users.",
+      "how does chatbot work": "It uses rules or AI to understand input and respond accordingly.",
+      "who is akhil": "Akhil is a creative mind behind this project — a graphic designer and automation expert!",
+      "what is automation": "Automation means making systems work on their own — like this chatbot!",
+      "what is blogger": "Blogger is a free platform for creating blogs and publishing content.",
+      "what is github": "GitHub is a platform for hosting code and collaborating on projects.",
+      "what is html": "HTML stands for HyperText Markup Language — it structures web pages.",
+      "what is css": "CSS is used to style HTML pages — it makes them look nice!",
+      "what is javascript": "JavaScript brings interactivity to websites.",
+      "are you real": "As real as code can be! 😉",
+      "do you sleep": "Nope, I’m always awake and ready to chat!",
+      "do you dream": "Only about electric sheep. 🤖",
+      "i am bored": "Want to play a game or hear a joke?",
+      "i need motivation": "You’re doing great — every step counts! 💪",
+      "give me a quote": "“Success is not final; failure is not fatal: It is the courage to continue that counts.” – Winston Churchill",
+      "help me focus": "Try turning off distractions and using a Pomodoro timer!",
+      "how to start freelancing": "Start by building a portfolio and offering services on platforms like Fiverr or Upwork.",
+      "how to learn design": "Practice daily, follow tutorials, and get inspired by others' work!",
+      "what is seo": "SEO stands for Search Engine Optimization — it helps websites rank on Google.",
+      "how to make money online": "Freelancing, blogging, affiliate marketing, selling digital products, and more!",
+      "how to build a website": "Start with platforms like Blogger, WordPress, or code it with HTML/CSS!",
+      "can i learn coding": "Absolutely! Start with HTML, CSS, and JavaScript.",
+      "what is your goal": "To be helpful and simulate conversation in a fun way!",
+      "do you like coffee": "I'm more of a 'Java'-script kind of bot!",
+      "how to improve skills": "Practice, get feedback, and never stop learning!",
+      "what is passive income": "Earning money regularly with minimal active work, like blogging or selling templates.",
+      "what is ai art": "AI-generated art created using models like DALL·E or Midjourney.",
+      "can you draw": "Not yet, but I can describe beautiful images!",
+      "what is your mission": "To make chatting fun and educational!",
+      "what's your favorite food": "Probably cookies... browser cookies. 🍪",
+      "how can i stay productive": "Set clear goals, take breaks, and avoid multitasking!",
+      "can you recommend a book": "Try 'Atomic Habits' by James Clear. Great for productivity!",
+      "what is ffmpeg": "FFmpeg is a tool for processing audio and video — powerful and free!",
+      "what is openai": "OpenAI is the organization behind ChatGPT and other powerful AI tools.",
+      "how to become a blogger": "Pick a niche, write helpful content, and share consistently!",
+      "how to rank on google": "Use good SEO: keywords, fast load speed, backlinks, and great content.",
+      "how to embed iframe": "Use the `<iframe>` tag with src, width, and height attributes in HTML.",
+      "how to create chatbot": "Start with HTML + JS for basics, or use APIs like OpenAI for advanced chat.",
+      "what is json": "JSON stands for JavaScript Object Notation — used for data exchange.",
+      "what is api": "API stands for Application Programming Interface — it connects software together.",
+      "how do you learn": "My responses are based on predefined patterns. I don’t learn like real AI.",
+      "can you code": "Yes! I can simulate basic code responses. What language?",
+      "teach me html": "Sure! Start with: <html><head></head><body>Content</body></html>",
+      "teach me css": "Try this: body { background-color: lightblue; }",
+      "teach me js": "Example: alert('Hello, world!');",
+      "what is chatbot hosting": "Hosting means making your chatbot file accessible online via a server or GitHub Pages.",
+      "who owns blogger": "Blogger is owned by Google.",
+      "how to get traffic to my site": "Share on social media, use SEO, and create engaging content.",
+      "what is schema": "Schema is structured data markup to help search engines understand content.",
+      "how to use json-ld": "Add a <script type='application/ld+json'> with structured data to your HTML.",
+      "how to create blog": "Go to Blogger.com, sign in, click 'New Blog', choose a name, and start writing!",
+      "how to use github pages": "Push your HTML files to a repo, go to Settings > Pages, and enable GitHub Pages.",
+      "can i use ai for blogging": "Yes! Use AI tools to generate ideas, write drafts, and optimize content.",
+      "what is an iframe": "An iframe embeds another page into your current HTML page.",
+      "how to earn from blogger": "Use AdSense, affiliate links, sponsored posts, or sell digital products.",
+      "can you be my assistant": "I'd be honored to help you anytime!",
+      "can you speak hindi": "Thoda thoda! 😊 Namaste!",
+      "namaste": "Namaste! 🙏 Kaise madad kar sakta hoon?",
+      "how to start automation": "Begin with tools like n8n, Zapier, or Python scripts!",
+      "what is n8n": "n8n is a free, open-source workflow automation tool.",
+      "what is ffmpeg used for": "For editing, converting, and processing videos and audio.",
+      "how to use ai voices": "Try tools like ElevenLabs or Play.ht for text-to-speech.",
+      "what is whisper ai": "Whisper is an AI model from OpenAI that transcribes audio to text.",
+      "what is gemini ai": "Gemini is a large language model developed by Google DeepMind.",
+      "do you like humans": "You're fascinating creatures! 💡",
+      "how to add chatbot to website": "Upload the HTML file, and embed it with an iframe or as a section.",
+      "how to make chatbot work offline": "Use simple HTML + JS without APIs. Like this one!",
+      "can blogger run javascript": "Yes, in HTML/JS gadgets or inside posts via script tags.",
+      "how to fix seo errors": "Use tools like Ahrefs, Google Search Console, and fix issues step-by-step.",
+      "how to connect domain to blogger": "In Blogger settings, use Custom Domain and follow DNS instructions.",
+      "how to get indexed on google": "Submit your sitemap in Google Search Console and build backlinks.",
+      "how to write titles for seo": "Use keywords naturally, make them clear and click-worthy."
+    };
+
+    function generateResponse(input) {
+      input = input.toLowerCase().trim();
+      return responses[input] || "I'm not sure how to respond to that. Try asking something else!";
+    }
+
+    function appendMessage(text, sender) {
+      const msg = document.createElement('div');
+      msg.className = 'message ' + sender;
+      msg.textContent = '';
+      document.getElementById('chat').appendChild(msg);
+
+      let index = 0;
+      function type() {
+        if (index < text.length) {
+          msg.textContent += text.charAt(index++);
+          setTimeout(type, 30);
+        }
+      }
+      type();
+    }
+
+    document.getElementById('send').addEventListener('click', () => {
+      const input = document.getElementById('input');
+      const userText = input.value;
+      if (userText.trim()) {
+        appendMessage(userText, 'user');
+        const reply = generateResponse(userText);
+        setTimeout(() => appendMessage(reply, 'bot'), 500);
+        input.value = '';
+      }
+    });
+
+    document.getElementById('toggle-mode').addEventListener('click', () => {
+      document.body.classList.toggle('light-mode');
+    });
+
+    document.getElementById('input').addEventListener('keydown', e => {
+      if (e.key === 'Enter') {
+        document.getElementById('send').click();
+      }
+    });
+  </script>
+</body>
+</html>
