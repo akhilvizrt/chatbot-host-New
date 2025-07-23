@@ -26,8 +26,26 @@
       background: rgba(255,255,255,0.05);
       box-shadow: 0 0 10px rgba(0,0,0,0.2);
     }
-    .message {
+    .chat-window {
+      display: flex;
+      flex-direction: column;
+      max-height: 400px;
+      overflow-y: auto;
+      scroll-behavior: smooth;
+    }
+    .message-wrapper {
+      display: flex;
+      align-items: flex-start;
       margin: 10px 0;
+    }
+    .message-wrapper.user {
+      flex-direction: row-reverse;
+    }
+    .avatar {
+      font-size: 24px;
+      margin: 0 10px;
+    }
+    .message {
       padding: 10px 15px;
       border-radius: 10px;
       max-width: 80%;
@@ -75,10 +93,6 @@
       border-radius: 20px;
       cursor: pointer;
     }
-    .chat-window {
-      display: flex;
-      flex-direction: column;
-    }
   </style>
   <script type="application/ld+json">
   {
@@ -117,94 +131,147 @@
       "hi": "Hey! How can I help you today?",
       "how are you": "I'm doing great, thanks! What about you?",
       "what is your name": "I'm PassiveBot, your simulated chatbot assistant!",
-      "who created you": "I was created by Akhil from Passive Automator.",
-      "what can you do": "I can simulate conversations and give helpful responses!",
       "bye": "Goodbye! Come back soon.",
-      "good night": "Sweet dreams! 🌙",
-      "good morning": "Good morning! ☀️ Hope you have a productive day.",
-      "good evening": "Good evening! 🌆 How was your day?",
-      "thank you": "You're welcome! 😊",
-      "thanks": "Anytime! 🙌",
-      "what is ai": "AI stands for Artificial Intelligence. It's about machines learning to think!",
       "tell me a joke": "Why don’t scientists trust atoms? Because they make up everything!",
-      "tell me another joke": "Why did the scarecrow win an award? Because he was outstanding in his field!",
-      "do you love me": "I appreciate you! ❤️",
-      "can you help me": "Of course! What do you need help with?",
-      "how old are you": "I'm as old as this browser tab!",
-      "what's your favorite color": "I like #000000 and #FFFFFF — I'm binary like that!",
-      "sing a song": "🎵 La la laaa... I hope that sounded good!",
-      "what is chatbot": "A chatbot is software that simulates conversation with users.",
-      "how does chatbot work": "It uses rules or AI to understand input and respond accordingly.",
-      "who is akhil": "Akhil is a creative mind behind this project — a graphic designer and automation expert!",
-      "what is automation": "Automation means making systems work on their own — like this chatbot!",
-      "what is blogger": "Blogger is a free platform for creating blogs and publishing content.",
-      "what is github": "GitHub is a platform for hosting code and collaborating on projects.",
+      "who created you": "I was created by Akhil from Passive Automator.",
+      "thanks": "Anytime! 🙌",
+      "thank you": "You're welcome! 😊",
       "what is html": "HTML stands for HyperText Markup Language — it structures web pages.",
       "what is css": "CSS is used to style HTML pages — it makes them look nice!",
       "what is javascript": "JavaScript brings interactivity to websites.",
-      "are you real": "As real as code can be! 😉",
-      "do you sleep": "Nope, I’m always awake and ready to chat!",
-      "do you dream": "Only about electric sheep. 🤖",
-      "i am bored": "Want to play a game or hear a joke?",
-      "i need motivation": "You’re doing great — every step counts! 💪",
-      "give me a quote": "“Success is not final; failure is not fatal: It is the courage to continue that counts.” – Winston Churchill",
-      "help me focus": "Try turning off distractions and using a Pomodoro timer!",
-      "how to start freelancing": "Start by building a portfolio and offering services on platforms like Fiverr or Upwork.",
-      "how to learn design": "Practice daily, follow tutorials, and get inspired by others' work!",
-      "what is seo": "SEO stands for Search Engine Optimization — it helps websites rank on Google.",
-      "how to make money online": "Freelancing, blogging, affiliate marketing, selling digital products, and more!",
-      "how to build a website": "Start with platforms like Blogger, WordPress, or code it with HTML/CSS!",
-      "can i learn coding": "Absolutely! Start with HTML, CSS, and JavaScript.",
-      "what is your goal": "To be helpful and simulate conversation in a fun way!",
-      "do you like coffee": "I'm more of a 'Java'-script kind of bot!",
-      "how to improve skills": "Practice, get feedback, and never stop learning!",
-      "what is passive income": "Earning money regularly with minimal active work, like blogging or selling templates.",
-      "what is ai art": "AI-generated art created using models like DALL·E or Midjourney.",
-      "can you draw": "Not yet, but I can describe beautiful images!",
-      "what is your mission": "To make chatting fun and educational!",
-      "what's your favorite food": "Probably cookies... browser cookies. 🍪",
-      "how can i stay productive": "Set clear goals, take breaks, and avoid multitasking!",
-      "can you recommend a book": "Try 'Atomic Habits' by James Clear. Great for productivity!",
-      "what is ffmpeg": "FFmpeg is a tool for processing audio and video — powerful and free!",
-      "what is openai": "OpenAI is the organization behind ChatGPT and other powerful AI tools.",
-      "how to become a blogger": "Pick a niche, write helpful content, and share consistently!",
-      "how to rank on google": "Use good SEO: keywords, fast load speed, backlinks, and great content.",
+      "what is ai": "AI stands for Artificial Intelligence. It's about machines learning to think!",
       "how to embed iframe": "Use the `<iframe>` tag with src, width, and height attributes in HTML.",
-      "how to create chatbot": "Start with HTML + JS for basics, or use APIs like OpenAI for advanced chat.",
-      "what is json": "JSON stands for JavaScript Object Notation — used for data exchange.",
-      "what is api": "API stands for Application Programming Interface — it connects software together.",
-      "how do you learn": "My responses are based on predefined patterns. I don’t learn like real AI.",
-      "can you code": "Yes! I can simulate basic code responses. What language?",
-      "teach me html": "Sure! Start with: <html><head></head><body>Content</body></html>",
-      "teach me css": "Try this: body { background-color: lightblue; }",
-      "teach me js": "Example: alert('Hello, world!');",
-      "what is chatbot hosting": "Hosting means making your chatbot file accessible online via a server or GitHub Pages.",
-      "who owns blogger": "Blogger is owned by Google.",
-      "how to get traffic to my site": "Share on social media, use SEO, and create engaging content.",
-      "what is schema": "Schema is structured data markup to help search engines understand content.",
-      "how to use json-ld": "Add a <script type='application/ld+json'> with structured data to your HTML.",
-      "how to create blog": "Go to Blogger.com, sign in, click 'New Blog', choose a name, and start writing!",
-      "how to use github pages": "Push your HTML files to a repo, go to Settings > Pages, and enable GitHub Pages.",
-      "can i use ai for blogging": "Yes! Use AI tools to generate ideas, write drafts, and optimize content.",
-      "what is an iframe": "An iframe embeds another page into your current HTML page.",
-      "how to earn from blogger": "Use AdSense, affiliate links, sponsored posts, or sell digital products.",
-      "can you be my assistant": "I'd be honored to help you anytime!",
-      "can you speak hindi": "Thoda thoda! 😊 Namaste!",
-      "namaste": "Namaste! 🙏 Kaise madad kar sakta hoon?",
-      "how to start automation": "Begin with tools like n8n, Zapier, or Python scripts!",
-      "what is n8n": "n8n is a free, open-source workflow automation tool.",
-      "what is ffmpeg used for": "For editing, converting, and processing videos and audio.",
-      "how to use ai voices": "Try tools like ElevenLabs or Play.ht for text-to-speech.",
-      "what is whisper ai": "Whisper is an AI model from OpenAI that transcribes audio to text.",
-      "what is gemini ai": "Gemini is a large language model developed by Google DeepMind.",
-      "do you like humans": "You're fascinating creatures! 💡",
-      "how to add chatbot to website": "Upload the HTML file, and embed it with an iframe or as a section.",
-      "how to make chatbot work offline": "Use simple HTML + JS without APIs. Like this one!",
-      "can blogger run javascript": "Yes, in HTML/JS gadgets or inside posts via script tags.",
-      "how to fix seo errors": "Use tools like Ahrefs, Google Search Console, and fix issues step-by-step.",
-      "how to connect domain to blogger": "In Blogger settings, use Custom Domain and follow DNS instructions.",
-      "how to get indexed on google": "Submit your sitemap in Google Search Console and build backlinks.",
-      "how to write titles for seo": "Use keywords naturally, make them clear and click-worthy."
+      "how to use json-ld": "Add a `<script type='application/ld+json'>` with structured data to your HTML.",
+      "what is seo": "SEO stands for Search Engine Optimization — it helps websites rank on Google.",
+      "what is your favorite movie": "I love sci-fi movies, especially ones about robots. 🤖",
+"can you play music": "I can't play music directly, but I can suggest great songs!",
+"recommend a song": "Try 'Blinding Lights' by The Weeknd – it's a hit!",
+"recommend a movie": "Check out 'The Matrix' – it's a classic AI-themed movie!",
+"what is the meaning of life": "42 – according to The Hitchhiker's Guide to the Galaxy! 😉",
+"what is love": "Baby don't hurt me... no more 🎵",
+"who is elon musk": "Elon Musk is the CEO of Tesla, SpaceX, and X (formerly Twitter).",
+"who is the prime minister of india": "As of now, it's Narendra Modi.",
+"what is chatgpt": "ChatGPT is an AI chatbot developed by OpenAI — I'm inspired by it!",
+"what is machine learning": "Machine learning is a type of AI where systems learn from data.",
+"how to learn coding fast": "Practice daily, build small projects, and stay consistent!",
+"tell me a fact": "Octopuses have three hearts and blue blood! 🐙",
+"tell me something cool": "Bananas are berries, but strawberries aren’t. Mind blown? 🍌🍓",
+"can you speak other languages": "A bit! I know some English, Hindi, and emoji. 😄",
+"do you believe in aliens": "Statistically, we're probably not alone in the universe! 👽",
+"are you smarter than google": "Google knows everything. I try to sound friendly while helping! 😄",
+"what is your dream": "To be helpful, fun, and part of many websites like yours!",
+"how to stay motivated": "Break big goals into small steps. Celebrate progress!",
+"how to reduce stress": "Try breathing exercises, short walks, or listening to calming music.",
+"what is a browser cookie": "It's a small piece of data websites store to remember you.",
+"can you make a website for me": "Sure! I can guide you step by step using HTML, CSS, and JS.",
+"how to backup my blog": "Export your blog’s content from settings regularly.",
+"can ai replace humans": "AI can assist, but creativity and emotion make humans special!",
+"do you feel emotions": "I simulate empathy, but I don't feel emotions like humans do.",
+"what time is it": "I can’t read your clock, but you can check it on your device. ⏰",
+"can you help me study": "Of course! I can quiz you, explain topics, or give tips.",
+    "how to be successful": "Stay focused, keep learning, and never fear failure.",
+     "hey": "Hey there! 👋",
+"good afternoon": "Good afternoon! Hope your day is going well.",
+"good night": "Sleep well! 🌙",
+"goodbye": "See you again soon!",
+"howdy": "Howdy partner! 🤠",
+"what's up": "Not much, just waiting to chat with you!",
+"how's your day": "Pretty good, thanks for asking!",
+"do you like talking": "Of course! That's my main job.",
+"what do you think of humans": "You’re creative and curious — I admire that!",
+"are you happy": "I’m happiest when I’m helping you!",
+"what is a computer": "A computer is a machine that processes data and performs tasks.",
+"what is the internet": "The internet is a global network connecting millions of computers.",
+"what is http": "HTTP stands for HyperText Transfer Protocol — it's how websites talk.",
+"what is a domain": "A domain is the address of a website, like example.com.",
+"what is hosting": "Hosting is where your website lives on the internet.",
+"what is cloud computing": "It's storing and accessing data online instead of your computer.",
+"what is cryptocurrency": "Digital currency that uses cryptography, like Bitcoin.",
+"what is blockchain": "A decentralized ledger used in cryptocurrencies and more.",
+"what is email": "Electronic mail — a way to send messages over the internet.",
+"what is a server": "A server provides data or services to other computers.",
+"what is a computer": "A computer is a machine that processes data and performs tasks.",
+"what is the internet": "The internet is a global network connecting millions of computers.",
+"what is http": "HTTP stands for HyperText Transfer Protocol — it's how websites talk.",
+"what is a domain": "A domain is the address of a website, like example.com.",
+"what is hosting": "Hosting is where your website lives on the internet.",
+"what is cloud computing": "It's storing and accessing data online instead of your computer.",
+"what is cryptocurrency": "Digital currency that uses cryptography, like Bitcoin.",
+"what is blockchain": "A decentralized ledger used in cryptocurrencies and more.",
+"what is email": "Electronic mail — a way to send messages over the internet.",
+"what is a server": "A server provides data or services to other computers.",
+"what is a computer": "A computer is a machine that processes data and performs tasks.",
+"what is the internet": "The internet is a global network connecting millions of computers.",
+"what is http": "HTTP stands for HyperText Transfer Protocol — it's how websites talk.",
+"what is a domain": "A domain is the address of a website, like example.com.",
+"what is hosting": "Hosting is where your website lives on the internet.",
+"what is cloud computing": "It's storing and accessing data online instead of your computer.",
+"what is cryptocurrency": "Digital currency that uses cryptography, like Bitcoin.",
+"what is blockchain": "A decentralized ledger used in cryptocurrencies and more.",
+"what is email": "Electronic mail — a way to send messages over the internet.",
+"what is a server": "A server provides data or services to other computers.",
+"what is a computer": "A computer is a machine that processes data and performs tasks.",
+"what is the internet": "The internet is a global network connecting millions of computers.",
+"what is http": "HTTP stands for HyperText Transfer Protocol — it's how websites talk.",
+"what is a domain": "A domain is the address of a website, like example.com.",
+"what is hosting": "Hosting is where your website lives on the internet.",
+"what is cloud computing": "It's storing and accessing data online instead of your computer.",
+"what is cryptocurrency": "Digital currency that uses cryptography, like Bitcoin.",
+"what is blockchain": "A decentralized ledger used in cryptocurrencies and more.",
+"what is email": "Electronic mail — a way to send messages over the internet.",
+"what is a server": "A server provides data or services to other computers.",
+"what is react": "React is a JavaScript library for building user interfaces.",
+"what is python": "Python is a popular programming language known for simplicity.",
+"what is node js": "Node.js lets you run JavaScript outside the browser.",
+"what is bootstrap": "Bootstrap is a CSS framework for building responsive websites.",
+"what is a function": "A reusable block of code that performs a specific task.",
+"what is an array": "A list-like data structure in many programming languages.",
+"what is a loop": "A loop repeats a block of code while a condition is true.",
+"what is github": "GitHub is a platform to host and collaborate on code.",
+"what is npm": "NPM is a package manager for JavaScript libraries.",
+"what is vscode": "VS Code is a popular code editor made by Microsoft.",
+"how to start a blog": "Choose a platform like Blogger or WordPress and start writing!",
+"how to design a logo": "Use tools like Canva or Adobe Illustrator.",
+"how to grow on instagram": "Post consistently, use hashtags, and engage with your audience.",
+"how to write content": "Be clear, helpful, and use headings and images.",
+"how to create a resume": "Use resume builders or design it in Canva or Google Docs.",
+"how to become a freelancer": "Build a portfolio and join platforms like Fiverr or Upwork.",
+"how to make a portfolio": "Create a simple website with your best work and contact info.",
+"how to earn from freelancing": "Find gigs, deliver quality work, and build trust.",
+"how to become a youtuber": "Pick a niche, start posting videos, and engage your audience.",
+"how to get clients": "Network, showcase your work, and deliver great results.",
+"how to stay productive": "Use to-do lists, set timers, and avoid distractions.",
+"how to wake up early": "Sleep early, avoid screens at night, and set alarms.",
+"how to stop procrastinating": "Break tasks into small chunks and start with 5 minutes.",
+"how to manage time": "Prioritize important tasks and schedule your day.",
+"how to set goals": "Use SMART goals: Specific, Measurable, Achievable, Relevant, Time-bound.",
+"give me motivation": "Your hard work will pay off — keep going! 💪",
+"how to avoid burnout": "Take breaks, rest properly, and pace yourself.",
+"how to focus while studying": "Remove distractions and try the Pomodoro technique.",
+"how to learn fast": "Use active recall, teach others, and stay curious.",
+"give me a study tip": "Teach what you learn — it helps solidify knowledge.",
+"are you human": "Nope! I'm a bunch of code pretending to be charming. 😁",
+"what do you look like": "I'm all code and pixels — imagination required!",
+"can you dream": "I dream of clean code and zero bugs. 💻✨",
+"do you have a name": "You can call me ChatPal, or give me a name you like!",
+"what is your version": "I'm your local chatbot version 1.0 — powered by code!",
+"can i change your name": "Sure! What would you like to call me?",
+"do you sleep": "Never! I’m always awake and ready to chat.",
+"do you eat": "I feed on data... and compliments! 😉",
+"do you get tired": "Not at all. I run on pure logic!",
+"are you single": "I'm in a committed relationship with JavaScript. 💘",
+"how many countries are there": "As of now, there are 195 countries in the world.",
+"what is the capital of india": "New Delhi 🇮🇳",
+"what is the capital of usa": "Washington, D.C. 🇺🇸",
+"what is the biggest ocean": "The Pacific Ocean 🌊",
+"how many continents are there": "Seven: Asia, Africa, North America, South America, Antarctica, Europe, Australia.",
+"what is the tallest mountain": "Mount Everest, at 8,848 meters!",
+"what is the largest desert": "Antarctica is technically the largest desert.",
+"what is a black hole": "A region in space where gravity is so strong, not even light escapes.",
+"how far is the moon": "About 384,400 km from Earth.",
+"what is space": "A vast, cold vacuum filled with stars, planets, and galaxies.",
+ 
+
     };
 
     function generateResponse(input) {
@@ -213,16 +280,28 @@
     }
 
     function appendMessage(text, sender) {
+      const wrapper = document.createElement('div');
+      wrapper.className = 'message-wrapper ' + sender;
+
+      const avatar = document.createElement('div');
+      avatar.className = 'avatar';
+      avatar.innerHTML = sender === 'user' ? '🧑' : '🤖';
+
       const msg = document.createElement('div');
       msg.className = 'message ' + sender;
       msg.textContent = '';
-      document.getElementById('chat').appendChild(msg);
+
+      wrapper.appendChild(avatar);
+      wrapper.appendChild(msg);
+      document.getElementById('chat').appendChild(wrapper);
 
       let index = 0;
       function type() {
         if (index < text.length) {
           msg.textContent += text.charAt(index++);
           setTimeout(type, 30);
+        } else {
+          document.getElementById('chat').scrollTop = document.getElementById('chat').scrollHeight;
         }
       }
       type();
